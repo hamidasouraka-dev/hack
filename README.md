@@ -1,10 +1,10 @@
-# ArnaqueDetect AI 🛡️
+# ArnaqueDetect AI
 
 **La ligne de défense souveraine contre la cybercriminalité en Afrique de l'Ouest.**
 
 ArnaqueDetect est une application de pointe conçue pour protéger les citoyens et les entreprises des tentatives de fraude numérique de plus en plus sophistiquées. Grâce à une intelligence artificielle spécialisée dans le contexte local (Afrique de l'Ouest), l'application identifie instantanément les arnaques dans les messages textes, les images et les offres d'emploi.
 
-## ✨ Fonctionnalités Clés
+## Fonctionnalités Clés
 
 - **Analyse Multimodale** : Collez un message suspect ou téléchargez une capture d'écran (SMS, WhatsApp, Email).
 - **Détection Contextuelle** : Expert en arnaques locales (Mobile Money, virement erroné, faux frais de dossier, etc.).
@@ -13,7 +13,7 @@ ArnaqueDetect est une application de pointe conçue pour protéger les citoyens 
 - **Assistant de Sécurité Interactif** : Posez des questions supplémentaires sur l'analyse pour lever vos derniers doutes.
 - **Interface Premium** : Design minimaliste et rassurant inspiré des standards fintech mondiaux.
 
-## 🚀 Technologie
+## Technologie
 
 - **Framework** : React 19 + TypeScript
 - **Styling** : Tailwind CSS (Design System sur mesure)
@@ -21,14 +21,14 @@ ArnaqueDetect est une application de pointe conçue pour protéger les citoyens 
 - **IA** : Google Gemini (Modèles Flash de dernière génération)
 - **Icons** : Lucide React
 
-## 🛠️ Configuration
+## Configuration
 
 L'application nécessite une clé API Gemini pour fonctionner.
 
 1.  Assurez-vous d'avoir accès à une clé Google AI Studio.
 2.  Configurez la variable d'environnement `GEMINI_API_KEY`.
 
-## 📂 Structure du Projet
+## Structure du Projet
 
 ```text
 /src
@@ -41,10 +41,10 @@ L'application nécessite une clé API Gemini pour fonctionner.
   /types         # Schémas de données TypeScript
 ```
 
-## 🔐 Confidentialité
+## Confidentialité
 
 ArnaqueDetect respecte votre vie privée. Les analyses sont effectuées sans stockage persistant de vos messages personnels. Seul le diagnostic est généré pour vous aider à prendre une décision éclairée.
 
 ---
 
-*Développé avec passion pour sécuriser l'écosystème numérique africain.*
+*Développé pour sécuriser l'écosystème numérique africain.*
