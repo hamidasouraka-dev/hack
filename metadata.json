@@ -1,6 +1,6 @@
 {
   "name": "ArnaqueDetect - Protection Anti-Fraude Premium",
   "description": "L'outil d’IA de référence pour détecter les arnaques en Afrique de l’Ouest. Protégez votre argent et votre famille avec une précision absolue.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": ["microphone"],
   "majorCapabilities": []
 }

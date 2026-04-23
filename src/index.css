@@ -39,6 +39,14 @@
   .secondary-button {
     @apply rounded-full px-8 py-4 border border-brand/10 bg-white/50 text-brand font-semibold transition-all hover:bg-white/80 active:scale-[0.98];
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 /* Subtle grain texture overlay */

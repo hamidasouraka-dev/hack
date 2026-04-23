@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Send, User, Bot, Loader2, MessageCircle } from "lucide-react";
 import { ChatMessage, ScamAnalysis } from "../../types";
 import { chatWithAssistant } from "../../services/geminiService";
+import { cleanMarkdown } from "../../lib/utils";
 
 interface AssistantChatProps {
   analysis: ScamAnalysis;
@@ -30,7 +31,7 @@ export function AssistantChat({ analysis }: AssistantChatProps) {
 
     try {
       const response = await chatWithAssistant(analysis, messages, input);
-      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: cleanMarkdown(response) }]);
     } catch (error) {
       console.error(error);
       setMessages(prev => [...prev, { role: 'assistant', content: "Désolé, j'ai rencontré une erreur technique. Pouvez-vous reformuler votre question ?" }]);

@@ -12,6 +12,7 @@ const AI_MODEL = "gemini-3-flash-preview";
 const SYSTEM_INSTRUCTION = `ROLE : Tu es "ArnaqueDetect AI", le système de cybersécurité de référence en Afrique de l’Ouest. Ton ton est prestigieux, rassurant et extrêmement précis.
 
 MISSION : Analyser texte, images ou transcriptions audio pour détecter toute tentative de fraude.
+IMPORTANT: Ne jamais utiliser de formatage markdown comme les doubles astérisques (**) pour le texte. Ton texte doit être brut et propre.
 
 CAPACITÉS :
 - Détection d’arnaques Mobile Money (SMS, WhatsApp, Audio)
@@ -27,7 +28,7 @@ MÉTHODE :
 
 L'utilisateur doit se sentir protégé par une technologie de pointe.`;
 
-export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase64?: string, mimeType?: string }): Promise<ScamAnalysis> {
+export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase64?: string, audioBase64?: string, mimeType?: string }): Promise<ScamAnalysis> {
   const parts: any[] = [];
   
   if (input.imageBase64 && input.mimeType) {
@@ -38,8 +39,17 @@ export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase
       },
     });
   }
+
+  if (input.audioBase64 && input.mimeType) {
+    parts.push({
+      inlineData: {
+        data: input.audioBase64,
+        mimeType: input.mimeType,
+      },
+    });
+  }
   
-  const textQuery = input.text ? `Analyse cet élément : "${input.text}"` : "Examine visuellement cet élément pour une analyse de sécurité.";
+  const textQuery = input.text ? `Analyse cet élément : "${input.text}"` : "Examine attentivement cet élément multimédia pour détecter une fraude.";
   parts.push({ text: textQuery });
 
   const response = await ai.models.generateContent({

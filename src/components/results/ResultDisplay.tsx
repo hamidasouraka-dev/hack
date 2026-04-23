@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
-import { ShieldCheck, ShieldAlert, ShieldX, Info, List, ArrowRight, MessageCircle } from "lucide-react";
+import { ShieldCheck, ShieldAlert, ShieldX, Info, List, ArrowRight } from "lucide-react";
 import { ScamAnalysis } from "../../types";
 import { useEffect, useState } from "react";
 import { AssistantChat } from "./AssistantChat";
+import { cleanMarkdown } from "../../lib/utils";
 
 interface ResultDisplayProps {
   analysis: ScamAnalysis;
@@ -19,10 +20,10 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
   }, [analysis.risk_score]);
 
   const config = {
-    CRITIQUE: { icon: ShieldX, color: "text-red-600", bg: "bg-red-50", border: "border-red-100", label: "DANGER CRITIQUE" },
-    ÉLEVÉ: { icon: ShieldAlert, color: "text-orange-600", bg: "bg-orange-50", border: "border-orange-100", label: "RISQUE ÉLEVÉ" },
-    MOYEN: { icon: ShieldAlert, color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100", label: "MISE EN GARDE" },
-    FAIBLE: { icon: ShieldCheck, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100", label: "CONFIRME SÉCURISÉ" }
+    CRITIQUE: { icon: ShieldX, color: "text-red-600", bg: "bg-red-50", border: "border-red-100", label: "DANGER ROUGE - CRITIQUE" },
+    ÉLEVÉ: { icon: ShieldAlert, color: "text-red-500", bg: "bg-red-50/50", border: "border-red-100", label: "DANGER ROUGE - ÉLEVÉ" },
+    MOYEN: { icon: ShieldAlert, color: "text-amber-500", bg: "bg-amber-50", border: "border-amber-100", label: "DANGER JAUNE - MOYEN" },
+    FAIBLE: { icon: ShieldCheck, color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100", label: "SÉCURISÉ VERT - FAIBLE" }
   }[analysis.risk_level] || { icon: ShieldCheck, color: "text-brand", bg: "bg-brand/5", border: "border-brand/10", label: "ANALYSE TERMINÉE" };
 
   const Icon = config.icon;
@@ -67,10 +68,10 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
               {config.label}
             </div>
             <h2 className="text-2xl md:text-5xl font-display font-bold text-ink mb-4 md:mb-6 tracking-tight leading-tight">
-              {analysis.type_arnaque}
+              {cleanMarkdown(analysis.type_arnaque)}
             </h2>
             <p className="text-base md:text-xl text-muted font-medium italic leading-relaxed">
-              "{analysis.resume}"
+              "{cleanMarkdown(analysis.resume)}"
             </p>
           </div>
         </div>
@@ -94,7 +95,7 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
             {analysis.indices_detectes.map((item, i) => (
               <li key={i} className="flex items-start gap-4 text-muted text-sm md:text-base font-medium leading-relaxed group">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-brand/20 shrink-0 group-hover:bg-brand transition-colors" />
-                {item}
+                {cleanMarkdown(item)}
               </li>
             ))}
           </ul>
@@ -112,7 +113,7 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
             {analysis.action_immediate.map((action, i) => (
               <div key={i} className="bg-alabaster/50 border border-brand/5 p-4 md:p-5 rounded-2xl flex gap-4">
                 <span className="text-brand font-black italic opacity-20 text-2xl md:text-3xl">0{i+1}</span>
-                <p className="text-ink text-sm md:text-base font-semibold leading-snug">{action}</p>
+                <p className="text-ink text-sm md:text-base font-semibold leading-snug">{cleanMarkdown(action)}</p>
               </div>
             ))}
           </div>
@@ -127,7 +128,7 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
             <h4 className="font-bold text-sm md:text-lg uppercase tracking-tight">Rapport de l'IA</h4>
           </div>
           <p className="text-muted text-base md:text-lg leading-relaxed font-medium md:indent-12">
-            {analysis.analyse_detaillee}
+            {cleanMarkdown(analysis.analyse_detaillee)}
           </p>
           
           <div className="mt-8 md:mt-12 pt-8 md:pt-12 border-t border-brand/5">
@@ -136,7 +137,7 @@ export function ResultDisplay({ analysis }: ResultDisplayProps) {
               {analysis.conseils_prevention.map((tip, i) => (
                 <div key={i} className="flex items-center gap-3 text-xs md:text-sm font-medium text-muted">
                   <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-                  {tip}
+                  {cleanMarkdown(tip)}
                 </div>
               ))}
             </div>
