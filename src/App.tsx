@@ -20,7 +20,7 @@ export default function App() {
       delay: 0.1
     },
     {
-      icon: zap,
+      icon: Zap,
       title: "Analyse Instantanée",
       description: "Notre moteur d'IA souverain fournit un diagnostic en moins de 3 secondes pour neutraliser la menace immédiatement.",
       delay: 0.2
@@ -110,6 +110,3 @@ export default function App() {
     </div>
   );
 }
-
-// Helper to keep icons consistent (fixing lowercase zap import error from previous step)
-const zap = Zap;
