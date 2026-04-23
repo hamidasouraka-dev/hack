@@ -18,16 +18,16 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-6xl md:text-[5.5rem] font-display font-bold leading-[0.9] text-ink mb-8 tracking-[-0.04em]"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-bold leading-[1.1] md:leading-[0.9] text-ink mb-8 tracking-[-0.04em]"
         >
-          Protégez votre argent <br /> <span className="text-muted/40 italic">en toute sérénité.</span>
+          Protégez votre argent <br className="hidden sm:block" /> <span className="text-muted/40 italic">en toute sérénité.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-muted text-xl md:text-2xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed"
+          className="text-muted text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed px-4 md:px-0"
         >
           ArnaqueDetect utilise une IA de pointe pour identifier les fraudes Mobile Money, les faux emplois et les tentatives de phishing en quelques secondes.
         </motion.p>

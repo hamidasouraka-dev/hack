@@ -7,6 +7,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { ScamAnalysis } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const AI_MODEL = "gemini-3-flash-preview";
 
 const SYSTEM_INSTRUCTION = `ROLE : Tu es "ArnaqueDetect AI", le système de cybersécurité de référence en Afrique de l’Ouest. Ton ton est prestigieux, rassurant et extrêmement précis.
 
@@ -42,7 +43,7 @@ export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase
   parts.push({ text: textQuery });
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: AI_MODEL,
     contents: { parts },
     config: {
       systemInstruction: SYSTEM_INSTRUCTION,
@@ -51,7 +52,7 @@ export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase
         type: Type.OBJECT,
         properties: {
           risk_score: { type: Type.NUMBER },
-          risk_level: { type: Type.STRING, enum: ["CRITIQUE", "ÉLEVÉ", "MOYEN", "FAIBLE"] },
+          risk_level: { type: Type.STRING },
           type_arnaque: { type: Type.STRING },
           resume: { type: Type.STRING },
           indices_detectes: { type: Type.ARRAY, items: { type: Type.STRING } },
@@ -64,11 +65,18 @@ export async function analyzeWithArnaqueDetect(input: { text?: string, imageBase
     },
   });
 
-  if (!response.text) {
+  const text = response.text?.trim();
+
+  if (!text) {
     throw new Error("Erreur lors de la communication avec ArnaqueDetect AI.");
   }
 
-  return JSON.parse(response.text.trim()) as ScamAnalysis;
+  try {
+    return JSON.parse(text) as ScamAnalysis;
+  } catch (e) {
+    console.error("Failed to parse JSON response:", text);
+    throw new Error("Format de réponse invalide reçu de l'IA.");
+  }
 }
 
 export async function chatWithAssistant(
@@ -76,25 +84,29 @@ export async function chatWithAssistant(
   history: { role: 'user' | 'assistant'; content: string }[],
   userMessage: string
 ): Promise<string> {
-  const chat = ai.chats.create({
-    model: "gemini-3-flash-preview",
+  const systemPrompt = `Tu es "ArnaqueDetect Assistant", un expert en cybersécurité qui aide l'utilisateur à comprendre une analyse de fraude spécifique. 
+    L'analyse précédente a donné les résultats suivants :
+    - Type : ${analysis.type_arnaque}
+    - Risque : ${analysis.risk_level} (${analysis.risk_score}/100)
+    - Résumé : ${analysis.resume}
+    - Indices : ${analysis.indices_detectes.join(', ')}
+    - Analyse détaillée : ${analysis.analyse_detaillee}
+    
+    Réponds aux questions de l'utilisateur de manière précise, rassurante et professionnelle. Utilise un français simple. Si l'utilisateur demande quoi faire, rappelle les actions immédiates : ${analysis.action_immediate.join(', ')}.`;
+
+  const response = await ai.models.generateContent({
+    model: AI_MODEL,
+    contents: [
+      ...history.map(m => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }]
+      })),
+      { role: 'user', parts: [{ text: userMessage }] }
+    ],
     config: {
-      systemInstruction: `Tu es "ArnaqueDetect Assistant", un expert en cybersécurité qui aide l'utilisateur à comprendre une analyse de fraude spécifique. 
-      L'analyse précédente a donné les résultats suivants :
-      - Type : ${analysis.type_arnaque}
-      - Risque : ${analysis.risk_level} (${analysis.risk_score}/100)
-      - Résumé : ${analysis.resume}
-      - Indices : ${analysis.indices_detectes.join(', ')}
-      - Analyse détaillée : ${analysis.analyse_detaillee}
-      
-      Réponds aux questions de l'utilisateur de manière précise, rassurante et professionnelle. Utilise un français simple. Si l'utilisateur demande quoi faire, rappelle les actions immédiates : ${analysis.action_immediate.join(', ')}.`,
-    },
-    history: history.map(m => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }]
-    })),
+      systemInstruction: systemPrompt
+    }
   });
 
-  const result = await chat.sendMessage(userMessage);
-  return result.text;
+  return response.text || "Désolé, je ne peux pas répondre pour le moment.";
 }

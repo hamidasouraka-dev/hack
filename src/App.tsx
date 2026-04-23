@@ -42,11 +42,11 @@ export default function App() {
         <Hero />
 
         {/* Features Section */}
-        <section id="features" className="py-32 px-8 bg-white/30 relative">
+        <section id="features" className="py-20 md:py-32 px-6 md:px-8 bg-white/30 relative">
           <div className="max-w-7xl mx-auto">
-            <header className="mb-20">
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-ink mb-6 tracking-tight">Sécurité sans compromis.</h2>
-              <p className="text-muted text-xl max-w-xl font-medium">Une technologie de pointe conçue spécifiquement pour les défis numériques quotidiens en Afrique de l'Ouest.</p>
+            <header className="mb-12 md:mb-20">
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-ink mb-4 md:mb-6 tracking-tight">Sécurité sans compromis.</h2>
+              <p className="text-muted text-lg md:text-xl max-w-xl font-medium">Une technologie de pointe conçue spécifiquement pour les défis numériques quotidiens en Afrique de l'Ouest.</p>
             </header>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -58,11 +58,11 @@ export default function App() {
         </section>
 
         {/* Analyzer & Results Section */}
-        <section id="demo" className="py-40 px-8">
+        <section id="demo" className="py-24 md:py-40 px-6 md:px-8">
           <div className="max-w-7xl mx-auto">
-            <header className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-ink mb-6 tracking-tight">Outil de Diagnostic Sécurisé</h2>
-              <p className="text-muted text-xl max-w-2xl mx-auto font-medium">Capturez l'élément suspect et laissez ArnaqueDetect AI neutraliser le risque.</p>
+            <header className="text-center mb-12 md:mb-20">
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-ink mb-4 md:mb-6 tracking-tight">Outil de Diagnostic Sécurisé</h2>
+              <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto font-medium">Capturez l'élément suspect et laissez ArnaqueDetect AI neutraliser le risque.</p>
             </header>
 
             <div className="space-y-24">
@@ -89,18 +89,18 @@ export default function App() {
         </section>
 
         {/* Reassurance Banner */}
-        <section className="py-24 px-8 mb-20">
-          <div className="max-w-4xl mx-auto glass-card rounded-panel p-16 text-center border-t-accent/30 bg-gradient-to-b from-white/60 to-alabaster/60">
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-brand mb-6 leading-tight">
-              Plus de 50 000 familles <br /> protégées chaque jour.
+        <section className="py-16 md:py-24 px-6 md:px-8 mb-12 md:mb-20">
+          <div className="max-w-4xl mx-auto glass-card rounded-panel p-8 md:p-16 text-center border-t-accent/30 bg-gradient-to-b from-white/60 to-alabaster/60">
+            <h3 className="text-2xl md:text-4xl font-display font-bold text-brand mb-4 md:mb-6 leading-tight">
+              Plus de 50 000 familles <br className="hidden sm:block" /> protégées chaque jour.
             </h3>
-            <p className="text-muted text-lg mb-12 max-w-xl mx-auto">
+            <p className="text-muted text-base md:text-lg mb-8 md:mb-12 max-w-xl mx-auto">
               Rejoignez une communauté qui refuse le risque et choisit la sérénité technologique.
             </p>
-            <div className="flex flex-wrap justify-center gap-12 opacity-30 grayscale contrast-125">
-              <span className="font-display font-black text-2xl tracking-tighter">FINANCE-CI</span>
-              <span className="font-display font-black text-2xl tracking-tighter">BÉNIN-SECURE</span>
-              <span className="font-display font-black text-2xl tracking-tighter">WEST-SAFE</span>
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12 opacity-30 grayscale contrast-125">
+              <span className="font-display font-black text-xl md:text-2xl tracking-tighter">FINANCE-CI</span>
+              <span className="font-display font-black text-xl md:text-2xl tracking-tighter">BÉNIN-SECURE</span>
+              <span className="font-display font-black text-xl md:text-2xl tracking-tighter">WEST-SAFE</span>
             </div>
           </div>
         </section>

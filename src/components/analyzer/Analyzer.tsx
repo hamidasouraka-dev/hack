@@ -52,24 +52,24 @@ export function Analyzer({ onResult, onStart }: AnalyzerProps) {
     <div className="w-full max-w-4xl mx-auto" id="demo">
       <div className="glass-card rounded-[40px] p-2 overflow-hidden shadow-2xl">
         {/* Tabs */}
-        <div className="flex border-b border-brand/5 bg-alabaster/30">
+        <div className="flex border-b border-brand/5 bg-alabaster/30 overflow-x-auto">
           <button
             onClick={() => setActiveTab('text')}
-            className={`flex-1 flex items-center justify-center gap-3 py-6 text-sm font-semibold transition-all ${activeTab === 'text' ? 'text-brand border-b-2 border-brand' : 'text-muted hover:text-brand'}`}
+            className={`flex-1 flex items-center justify-center gap-3 py-4 md:py-6 px-4 text-xs md:text-sm font-semibold transition-all whitespace-nowrap ${activeTab === 'text' ? 'text-brand border-b-2 border-brand' : 'text-muted hover:text-brand'}`}
           >
-            <MessageSquare className="w-5 h-5" />
+            <MessageSquare className="w-4 h-4 md:w-5 md:h-5 " />
             ANALYSE TEXTUELLE
           </button>
           <button
             onClick={() => setActiveTab('image')}
-            className={`flex-1 flex items-center justify-center gap-3 py-6 text-sm font-semibold transition-all ${activeTab === 'image' ? 'text-brand border-b-2 border-brand' : 'text-muted hover:text-brand'}`}
+            className={`flex-1 flex items-center justify-center gap-3 py-4 md:py-6 px-4 text-xs md:text-sm font-semibold transition-all whitespace-nowrap ${activeTab === 'image' ? 'text-brand border-b-2 border-brand' : 'text-muted hover:text-brand'}`}
           >
-            <Camera className="w-5 h-5" />
+            <Camera className="w-4 h-4 md:w-5 md:h-5 " />
             ANALYSE VISUELLE
           </button>
         </div>
 
-        <div className="p-10 min-h-[300px] flex flex-col justify-center relative">
+        <div className="p-6 md:p-10 min-h-[250px] md:min-h-[300px] flex flex-col justify-center relative">
           <AnimatePresence mode="wait">
             {isAnalyzing ? (
               <motion.div
@@ -77,18 +77,18 @@ export function Analyzer({ onResult, onStart }: AnalyzerProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center py-20 text-center"
+                className="flex flex-col items-center justify-center py-12 md:py-20 text-center"
               >
-                <div className="relative mb-8">
+                <div className="relative mb-6 md:mb-8">
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="w-20 h-20 border-t-2 border-brand rounded-full"
+                    className="w-16 h-16 md:w-20 md:h-20 border-t-2 border-brand rounded-full"
                   />
-                  <Shield className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 text-brand" />
+                  <Shield className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 md:w-8 md:h-8 text-brand" />
                 </div>
-                <h3 className="text-2xl font-display font-bold text-brand mb-2">Analyse sécurisée en cours...</h3>
-                <p className="text-muted italic">Votre protection est notre priorité absolue.</p>
+                <h3 className="text-xl md:text-2xl font-display font-bold text-brand mb-2">Analyse sécurisée...</h3>
+                <p className="text-sm md:text-base text-muted italic">Votre protection est notre priorité.</p>
                 
                 {/* Decorative scanning line */}
                 <motion.div 
@@ -102,37 +102,37 @@ export function Analyzer({ onResult, onStart }: AnalyzerProps) {
                 key="input"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="space-y-8"
+                className="space-y-6 md:space-y-8"
               >
                 {activeTab === 'text' ? (
                   <textarea
-                    className="w-full bg-transparent border-none focus:ring-0 text-3xl md:text-4xl placeholder-slate-300 text-ink min-h-[200px] leading-tight font-display font-medium text-center"
+                    className="w-full bg-transparent border-none focus:ring-0 text-2xl sm:text-3xl md:text-4xl placeholder-slate-300 text-ink min-h-[150px] md:min-h-[200px] leading-tight font-display font-medium text-center"
                     placeholder="Collez le message suspect ici..."
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                   />
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-10">
+                  <div className="flex flex-col items-center justify-center py-6 md:py-10">
                     <input type="file" className="hidden" ref={fileInputRef} onChange={(e) => { const f = e.target.files?.[0]; if(f) processFile(f); }} accept="image/*" />
                     {!selectedImage ? (
                       <div 
-                        className="w-full max-w-lg p-16 border-2 border-dashed border-brand/10 rounded-[32px] flex flex-col items-center cursor-pointer hover:bg-brand/5 hover:border-brand/30 transition-all group"
+                        className="w-full max-w-lg p-8 md:p-16 border-2 border-dashed border-brand/10 rounded-[24px] md:rounded-[32px] flex flex-col items-center cursor-pointer hover:bg-brand/5 hover:border-brand/30 transition-all group"
                         onClick={() => fileInputRef.current?.click()}
                       >
-                        <div className="w-16 h-16 rounded-full bg-brand/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                          <Upload className="w-8 h-8 text-brand" />
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand/5 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                          <Upload className="w-6 h-6 md:w-8 md:h-8 text-brand" />
                         </div>
-                        <p className="text-xl font-bold text-brand mb-2">Importer une capture d'écran</p>
-                        <p className="text-muted text-sm">PNG, JPG jusqu'à 10MB</p>
+                        <p className="text-lg md:text-xl font-bold text-brand mb-2 text-center">Importer une capture d'écran</p>
+                        <p className="text-muted text-xs md:text-sm">PNG, JPG jusqu'à 10MB</p>
                       </div>
                     ) : (
                       <div className="relative group">
-                        <img src={selectedImage} alt="Capture" className="max-h-[300px] rounded-[24px] shadow-2xl border border-white" />
+                        <img src={selectedImage} alt="Capture" className="max-h-[200px] md:max-h-[300px] rounded-[16px] md:rounded-[24px] shadow-2xl border border-white" />
                         <button 
                           onClick={() => setSelectedImage(null)}
-                          className="absolute -top-4 -right-4 w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center shadow-xl hover:bg-brand/90 transition-colors"
+                          className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-brand text-white rounded-full flex items-center justify-center shadow-xl hover:bg-brand/90 transition-colors"
                         >
-                          <X className="w-6 h-6" />
+                          <X className="w-5 h-5 md:w-6 md:h-6" />
                         </button>
                       </div>
                     )}
@@ -143,16 +143,16 @@ export function Analyzer({ onResult, onStart }: AnalyzerProps) {
                   <button
                     onClick={handleAnalyze}
                     disabled={activeTab === 'text' ? !inputText.trim() : !selectedImage}
-                    className="premium-button disabled:opacity-30 disabled:scale-100 flex items-center gap-4 text-lg"
+                    className="premium-button w-full sm:w-auto disabled:opacity-30 disabled:scale-100 flex items-center justify-center gap-4 text-base md:text-lg"
                   >
-                    <Shield className="w-6 h-6" />
+                    <Shield className="w-5 h-5 md:w-6 md:h-6" />
                     ACTIVER L'ANALYSE
                   </button>
-                  <div className="mt-8 flex items-center gap-6 text-[10px] font-bold text-muted uppercase tracking-[0.2em] opacity-40">
+                  <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-6 text-[8px] md:text-[10px] font-bold text-muted uppercase tracking-[0.2em] opacity-40">
                     <span>Fintech Security</span>
-                    <span className="w-1 h-1 rounded-full bg-muted" />
+                    <span className="hidden md:block w-1 h-1 rounded-full bg-muted" />
                     <span>AI Cloud Node-X</span>
-                    <span className="w-1 h-1 rounded-full bg-muted" />
+                    <span className="hidden md:block w-1 h-1 rounded-full bg-muted" />
                     <span>Real-time Shield</span>
                   </div>
                 </div>
