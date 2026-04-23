@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Outfit:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Outfit", sans-serif;
+  
+  --color-brand: #0F3D3E;
+  --color-accent: #C6A77D;
+  --color-alabaster: #F8F7F4;
+  --color-ink: #0B1F1F;
+  --color-muted: #5F6F73;
+  
+  --shadow-premium: 0 20px 60px rgba(15, 61, 62, 0.08);
+  --shadow-glass: 0 8px 32px 0 rgba(15, 61, 62, 0.05);
+
+  --radius-panel: 32px;
+}
+
+@layer base {
+  body {
+    @apply bg-alabaster text-ink font-sans antialiased selection:bg-brand/10 selection:text-brand;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-xl border border-white/20 shadow-premium;
+  }
+
+  .premium-button {
+    @apply rounded-full px-8 py-4 bg-brand text-white font-semibold transition-all hover:scale-[1.03] active:scale-[0.98] shadow-lg hover:shadow-brand/20;
+  }
+
+  .secondary-button {
+    @apply rounded-full px-8 py-4 border border-brand/10 bg-white/50 text-brand font-semibold transition-all hover:bg-white/80 active:scale-[0.98];
+  }
+}
+
+/* Subtle grain texture overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
